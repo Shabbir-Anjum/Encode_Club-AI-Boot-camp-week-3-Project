@@ -1,9 +1,14 @@
-import OpenAI from "openai";
+// import OpenAI from "openai";
+import Groq from "groq-sdk";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 
-const openai = new OpenAI({
-  baseURL: `http://127.0.0.1:5000/v1`,
-  apiKey: "MY_API_KEY", // TODO: replace with OpenAI API key if available and remove the `baseURL` above
+// const openai = new OpenAI({
+//   baseURL: `http://127.0.0.1:5000/v1`,
+//   apiKey: "MY_API_KEY", // TODO: replace with OpenAI API key if available and remove the `baseURL` above
+// });
+
+const client = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export const runtime = "edge";
@@ -11,8 +16,9 @@ export const runtime = "edge";
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+  const response = await client.chat.completions.create({
+    // model: "gpt-4o-mini",
+    model: "llama3-8b-8192",
     stream: true,
     messages: [
       {
