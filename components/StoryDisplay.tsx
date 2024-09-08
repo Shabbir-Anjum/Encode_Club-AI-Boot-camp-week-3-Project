@@ -1,11 +1,14 @@
 import React from 'react';
+interface StoryDisplayProps {
+  story: string;
+}
 
-const StoryDisplay = ({ story }) => {
+const StoryDisplay: React.FC<StoryDisplayProps> = ({ story }) => {
   // Split the story into sections based on asterisks
-  const sections = story.split('*').filter(section => section.trim() !== '');
+  const sections: string[] = story.split('*').filter(section => section.trim() !== '');
 
   // Function to capitalize the first letter of each word
-  const capitalize = (str) => {
+  const capitalize = (str: string): string => {
     return str.replace(/\b\w/g, l => l.toUpperCase());
   };
 
