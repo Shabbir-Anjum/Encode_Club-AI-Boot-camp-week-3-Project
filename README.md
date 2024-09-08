@@ -1,4 +1,6 @@
 # Story Generator - Encode Club AI Bootcamp Week 3 Project
+#
+![Project logo](public/test.png)
 
 ## Project Description
 The Story Generator is an interactive web application built with NextJS that allows users to create custom characters and generate stories using AI. Users can add, edit, and delete characters with attributes such as name, description, and personality. The AI will then generate a story incorporating the user-created characters and provide a summary of each character's role in the story.
