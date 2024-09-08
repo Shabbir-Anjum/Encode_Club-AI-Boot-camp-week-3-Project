@@ -24,7 +24,11 @@ export interface Character {
   personality: string;
 }
 
-const defaultCharacters = [
+interface CharacterManagementProps {
+  onCharactersChange: (characters: Character[]) => void;
+}
+
+const defaultCharacters: Character[] = [
   {
     name: "Alice",
     description: "A curious and adventurous young girl",
@@ -42,10 +46,12 @@ const defaultCharacters = [
   },
 ];
 
-const CharacterManagement = ({ onCharactersChange }) => {
+const CharacterManagement: React.FC<CharacterManagementProps> = ({
+  onCharactersChange,
+}) => {
   const [characters, setCharacters] = useState<Character[]>(defaultCharacters);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [currentCharacter, setCurrentCharacter] = useState({
+  const [currentCharacter, setCurrentCharacter] = useState<Character>({
     name: "",
     description: "",
     personality: "",
@@ -55,10 +61,6 @@ const CharacterManagement = ({ onCharactersChange }) => {
   useEffect(() => {
     onCharactersChange(characters);
   }, [characters, onCharactersChange]);
-
-  useEffect(() => {
-    onCharactersChange(defaultCharacters);
-  }, [onCharactersChange]);
 
   const openDialog = (character?: Character | null, index = -1) => {
     setCurrentCharacter(
@@ -74,7 +76,7 @@ const CharacterManagement = ({ onCharactersChange }) => {
     setEditIndex(-1);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCurrentCharacter((prev) => ({ ...prev, [name]: value }));
   };
@@ -90,7 +92,7 @@ const CharacterManagement = ({ onCharactersChange }) => {
     closeDialog();
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = (index: number) => {
     setCharacters((prev) => prev.filter((_, idx) => idx !== index));
   };
 
@@ -176,4 +178,4 @@ const CharacterManagement = ({ onCharactersChange }) => {
   );
 };
 
-export default CharacterManagement;  
+export default CharacterManagement;
